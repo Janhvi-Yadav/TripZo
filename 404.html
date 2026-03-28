@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>404 – Page Not Found | Tripzo</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>✈</text></svg>">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" crossorigin="anonymous">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    *,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+    :root{--coral:#ff7f50;--coral-dark:#e8673a;--dark:#1a1a2e;--dark-2:#16213e;--text:#2d2d2d;--text-muted:#7a7a8a;--white:#fff;--bg:#f4f6fb;--border:#e8e8f0;}
+    html{scroll-behavior:smooth;}
+    body{font-family:'DM Sans',sans-serif;background:var(--dark);color:var(--white);min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;overflow:hidden;position:relative;}
+
+    /* animated background */
+    .bg-blobs{position:absolute;inset:0;overflow:hidden;z-index:0;}
+    .blob{position:absolute;border-radius:50%;filter:blur(80px);opacity:.18;}
+    .blob-1{width:500px;height:500px;background:var(--coral);top:-100px;left:-150px;animation:float1 12s ease-in-out infinite;}
+    .blob-2{width:400px;height:400px;background:#4f46e5;bottom:-80px;right:-100px;animation:float2 10s ease-in-out infinite;}
+    .blob-3{width:300px;height:300px;background:#0d9488;top:40%;left:60%;animation:float1 15s ease-in-out infinite reverse;}
+    @keyframes float1{0%,100%{transform:translate(0,0) scale(1)}33%{transform:translate(30px,-30px) scale(1.05)}66%{transform:translate(-20px,20px) scale(.95)}}
+    @keyframes float2{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(-30px,30px) scale(1.08)}}
+
+    .content{position:relative;z-index:1;text-align:center;padding:20px;max-width:560px;}
+
+    /* plane animation */
+    .plane-wrap{font-size:5rem;margin-bottom:12px;display:block;animation:planeFly 3s ease-in-out infinite;}
+    @keyframes planeFly{0%,100%{transform:translateY(0) rotate(-5deg)}50%{transform:translateY(-18px) rotate(5deg)}}
+
+    .err-code{font-family:'Playfair Display',serif;font-size:clamp(5rem,18vw,9rem);font-weight:700;line-height:1;background:linear-gradient(135deg,var(--coral),#ffd43b);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:8px;}
+
+    h1{font-family:'Playfair Display',serif;font-size:clamp(1.4rem,4vw,2rem);color:var(--white);margin-bottom:12px;}
+    h1 em{color:var(--coral);font-style:italic;}
+
+    p.desc{font-size:.95rem;color:rgba(255,255,255,.62);line-height:1.7;margin-bottom:36px;}
+
+    .action-btns{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;margin-bottom:40px;}
+    .btn-primary{display:inline-flex;align-items:center;gap:8px;background:linear-gradient(135deg,var(--coral),var(--coral-dark));color:#fff;padding:13px 28px;border-radius:50px;font-family:'DM Sans',sans-serif;font-weight:600;font-size:.9rem;text-decoration:none;transition:all .3s;box-shadow:0 4px 20px rgba(255,127,80,.4);}
+    .btn-primary:hover{transform:translateY(-2px);box-shadow:0 8px 28px rgba(255,127,80,.55);}
+    .btn-outline{display:inline-flex;align-items:center;gap:8px;background:transparent;color:rgba(255,255,255,.8);padding:12px 28px;border-radius:50px;border:1.5px solid rgba(255,255,255,.3);font-family:'DM Sans',sans-serif;font-weight:600;font-size:.9rem;text-decoration:none;transition:all .3s;}
+    .btn-outline:hover{background:rgba(255,255,255,.08);border-color:rgba(255,255,255,.6);}
+
+    /* quick links */
+    .quick-links{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;}
+    .ql{display:inline-flex;align-items:center;gap:6px;color:rgba(255,255,255,.5);font-size:.82rem;text-decoration:none;padding:6px 14px;border-radius:50px;border:1px solid rgba(255,255,255,.12);transition:all .3s;}
+    .ql:hover{color:var(--coral);border-color:rgba(255,127,80,.4);background:rgba(255,127,80,.07);}
+
+    /* brand top */
+    .nav-brand{position:absolute;top:28px;left:40px;z-index:2;display:flex;align-items:center;gap:10px;text-decoration:none;}
+    .nav-brand-icon{width:38px;height:38px;border-radius:10px;background:var(--coral);display:flex;align-items:center;justify-content:center;font-size:1rem;color:#fff;box-shadow:0 4px 12px rgba(255,127,80,.4);}
+    .nav-brand span{font-family:'Playfair Display',serif;font-size:1.3rem;color:var(--white);font-weight:700;}
+
+    /* countdown redirect */
+    .redirect-hint{margin-top:28px;font-size:.78rem;color:rgba(255,255,255,.3);}
+    .redirect-hint span{color:var(--coral);font-weight:600;}
+
+    @media(max-width:480px){
+      .nav-brand{top:20px;left:20px;}
+      .action-btns{flex-direction:column;align-items:center;}
+    }
+  </style>
+</head>
+<body>
+
+<div class="bg-blobs">
+  <div class="blob blob-1"></div>
+  <div class="blob blob-2"></div>
+  <div class="blob blob-3"></div>
+</div>
+
+<a href="index.html" class="nav-brand">
+  <div class="nav-brand-icon"><i class="fa-solid fa-plane-departure"></i></div>
+  <span>Tripzo</span>
+</a>
+
+<div class="content">
+  <span class="plane-wrap">✈</span>
+  <div class="err-code">404</div>
+  <h1>Looks like you're <em>off the map!</em></h1>
+  <p class="desc">The page you're looking for seems to have taken an unscheduled detour. Don't worry — let's get you back on track.</p>
+
+  <div class="action-btns">
+    <a href="index.html" class="btn-primary"><i class="fa-solid fa-house"></i> Back to Home</a>
+    <a href="booking.html" class="btn-outline"><i class="fa-solid fa-plane"></i> Book a Trip</a>
+  </div>
+
+  <div class="quick-links">
+    <a href="index.html#destinations" class="ql"><i class="fa-solid fa-map-location-dot"></i> Destinations</a>
+    <a href="Activity.html" class="ql"><i class="fa-solid fa-person-hiking"></i> Activities</a>
+    <a href="index.html#hotels" class="ql"><i class="fa-solid fa-hotel"></i> Hotels</a>
+    <a href="index.html#contact" class="ql"><i class="fa-solid fa-headset"></i> Contact</a>
+  </div>
+
+  <p class="redirect-hint">Redirecting to home in <span id="countdown">10</span>s…</p>
+</div>
+
+<script>
+  let t = 10;
+  const el = document.getElementById('countdown');
+  const timer = setInterval(() => {
+    t--;
+    if (el) el.textContent = t;
+    if (t <= 0) { clearInterval(timer); window.location.href = 'index.html'; }
+  }, 1000);
+  // Cancel redirect on user interaction
+  document.addEventListener('click', () => clearInterval(timer));
+</script>
+</body>
+</html>

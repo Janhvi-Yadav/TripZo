@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Tripzo – India's travel booking platform. Book destinations, hotels and activities across all 28 states.">
+  <title>Tripzo – Explore Incredible India</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>✈</text></svg>">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" crossorigin="anonymous">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://unpkg.com/aos@2.3.4/dist/aos.css">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- ══ NAVBAR ══ -->
+<header id="navbar">
+  <a href="index.html" class="nav-brand">
+    <div class="nav-brand-icon"><i class="fa-solid fa-plane-departure"></i></div>
+    <span>Tripzo</span>
+  </a>
+  <nav>
+    <ul id="nav-list">
+      <li><a href="#" class="nav-active">Home</a></li>
+      <li><a href="#destinations">Destinations</a></li>
+      <li><a href="#hotels">Hotels</a></li>
+      <li><a href="#activity">Activities</a></li>
+      <li><a href="#guide">Guide</a></li>
+      <li><a href="#contact">Contact</a></li>
+      <li><a href="loginpg.html" class="nav-login-btn"><i class="fa-solid fa-user"></i> Login</a></li>
+    </ul>
+  </nav>
+  <button class="hamburger" id="hamburger" onclick="toggleNav()" aria-label="Toggle menu">
+    <span></span><span></span><span></span>
+  </button>
+</header>
+
+<!-- ══ HERO ══ -->
+<section class="hero" id="home">
+  <div class="hero-bg">
+    <img src="https://images.unsplash.com/photo-1524492412937-b28074a5d7da?w=1600&q=85" alt="India travel" loading="eager" class="loaded">
+    <div class="hero-overlay"></div>
+  </div>
+  <div class="hero-content">
+    <span class="hero-badge" data-aos="fade-down" data-aos-delay="100">✈ Explore Incredible India</span>
+    <h1 data-aos="fade-up" data-aos-delay="200">Your Journey<br><em>Begins Here</em></h1>
+    <p data-aos="fade-up" data-aos-delay="320">Discover breathtaking destinations across all 28 states. Book hotels, activities and guided tours with ease.</p>
+    <div class="hero-btns" data-aos="fade-up" data-aos-delay="420">
+      <a href="booking.html" class="btn-primary"><i class="fa-solid fa-plane"></i> Book a Trip</a>
+      <a href="#destinations" class="btn-outline">Explore Destinations</a>
+    </div>
+    <div class="hero-search" data-aos="fade-up" data-aos-delay="520">
+      <div class="search-wrap">
+        <i class="fa-solid fa-magnifying-glass"></i>
+        <input type="text" id="heroSearch" placeholder="Search any state or city in India…" autocomplete="off">
+        <button onclick="doSearch()">Search</button>
+      </div>
+      <div id="searchResults" class="search-dropdown"></div>
+    </div>
+  </div>
+  <div class="scroll-hint"><i class="fa-solid fa-chevron-down"></i></div>
+</section>
+
+<!-- ══ STATS ══ -->
+<div class="stats-bar">
+  <div class="stat-item" data-aos="fade-up"><strong>28+</strong><span>States Covered</span></div>
+  <div class="stat-item" data-aos="fade-up" data-aos-delay="80"><strong>500+</strong><span>Destinations</span></div>
+  <div class="stat-item" data-aos="fade-up" data-aos-delay="160"><strong>12K+</strong><span>Happy Travellers</span></div>
+  <div class="stat-item" data-aos="fade-up" data-aos-delay="240"><strong>4.9 ★</strong><span>Average Rating</span></div>
+</div>
+
+<!-- ══ PACKAGES ══ -->
+<section class="section-wrap" id="packages">
+  <div class="section-header" data-aos="fade-up">
+    <span class="section-tag">Curated For You</span>
+    <h2>Best Packages</h2>
+    <p>Hand-picked tours at unbeatable prices — starting from ₹14,999</p>
+  </div>
+  <div class="cards-grid">
+    <div class="card package-card" data-aos="fade-up">
+      <div class="card-img"><img src="https://tripandtales.com/wp-content/uploads/2025/08/Shimla.jpg" alt="Shimla" loading="lazy"><span class="badge badge-coral">Popular</span></div>
+      <div class="card-body"><h3>Shimla Retreat</h3><p class="card-meta"><i class="fa-solid fa-clock"></i>3 Days &nbsp;|&nbsp;<i class="fa-solid fa-mountain"></i> Hill Station</p><div class="card-foot"><span class="price">₹24,999</span><a href="booking.html" class="btn-sm">Book Now</a></div></div>
+    </div>
+    <div class="card package-card" data-aos="fade-up" data-aos-delay="80">
+      <div class="card-img"><img src="https://images.unsplash.com/photo-1602216056096-3b40cc0c9944?w=600&q=80" alt="Kerala" loading="lazy"><span class="badge badge-green">Best Value</span></div>
+      <div class="card-body"><h3>Kerala Backwaters</h3><p class="card-meta"><i class="fa-solid fa-clock"></i>5 Days &nbsp;|&nbsp;<i class="fa-solid fa-water"></i> Backwaters</p><div class="card-foot"><span class="price">₹29,999</span><a href="booking.html" class="btn-sm">Book Now</a></div></div>
+    </div>
+    <div class="card package-card" data-aos="fade-up" data-aos-delay="160">
+      <div class="card-img"><img src="https://www.indianholiday.com/wordpress/wp-content/uploads/2011/11/Mehrangarh-Fort-of-Rajasthan.jpg" alt="Rajasthan" loading="lazy"><span class="badge badge-gold">Premium</span></div>
+      <div class="card-body"><h3>Royal Rajasthan</h3><p class="card-meta"><i class="fa-solid fa-clock"></i>7 Days &nbsp;|&nbsp;<i class="fa-solid fa-crown"></i> Heritage</p><div class="card-foot"><span class="price">₹49,999</span><a href="booking.html" class="btn-sm">Book Now</a></div></div>
+    </div>
+    <div class="card package-card" data-aos="fade-up">
+      <div class="card-img"><img src="https://images.unsplash.com/photo-1596402184320-417e7178b2cd?w=600&q=80" alt="Goa" loading="lazy"><span class="badge badge-coral">Trending</span></div>
+      <div class="card-body"><h3>Goa Beach Escape</h3><p class="card-meta"><i class="fa-solid fa-clock"></i>4 Days &nbsp;|&nbsp;<i class="fa-solid fa-umbrella-beach"></i> Beach</p><div class="card-foot"><span class="price">₹19,999</span><a href="booking.html" class="btn-sm">Book Now</a></div></div>
+    </div>
+    <div class="card package-card" data-aos="fade-up" data-aos-delay="80">
+      <div class="card-img"><img src="https://images.unsplash.com/photo-1544735716-392fe2489ffa?w=600&q=80" alt="Ladakh" loading="lazy"><span class="badge badge-green">Adventure</span></div>
+      <div class="card-body"><h3>Ladakh Explorer</h3><p class="card-meta"><i class="fa-solid fa-clock"></i>8 Days &nbsp;|&nbsp;<i class="fa-solid fa-person-hiking"></i> Adventure</p><div class="card-foot"><span class="price">₹54,999</span><a href="booking.html" class="btn-sm">Book Now</a></div></div>
+    </div>
+    <div class="card package-card" data-aos="fade-up" data-aos-delay="160">
+      <div class="card-img"><img src="https://images.unsplash.com/photo-1569949381669-ecf31ae8e613?w=600&q=80" alt="Varanasi" loading="lazy"><span class="badge badge-gold">Spiritual</span></div>
+      <div class="card-body"><h3>Varanasi Spiritual</h3><p class="card-meta"><i class="fa-solid fa-clock"></i>3 Days &nbsp;|&nbsp;<i class="fa-solid fa-om"></i> Spiritual</p><div class="card-foot"><span class="price">₹14,999</span><a href="booking.html" class="btn-sm">Book Now</a></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ DESTINATIONS ══ -->
+<section id="destinations" class="section-wrap section-alt">
+  <div class="section-header" data-aos="fade-up">
+    <span class="section-tag">Explore India</span>
+    <h2>Popular Destinations</h2>
+    <p>From snow-capped peaks to tropical shores — India has it all</p>
+  </div>
+  <div class="filter-tabs" data-aos="fade-up">
+    <button class="filter-btn active" onclick="filterDest('all',event)">All</button>
+    <button class="filter-btn" onclick="filterDest('mountains',event)">🏔 Mountains</button>
+    <button class="filter-btn" onclick="filterDest('beach',event)">🏖 Beaches</button>
+    <button class="filter-btn" onclick="filterDest('heritage',event)">🏛 Heritage</button>
+    <button class="filter-btn" onclick="filterDest('nature',event)">🌿 Nature</button>
+    <button class="filter-btn" onclick="filterDest('spiritual',event)">🕌 Spiritual</button>
+  </div>
+  <div class="cards-grid" id="destGrid">
+    <div class="card dest-card" data-cat="heritage" data-aos="fade-up"><div class="card-img"><img src="https://www.indianholiday.com/wordpress/wp-content/uploads/2011/11/Mehrangarh-Fort-of-Rajasthan.jpg" alt="Rajasthan" loading="lazy"></div><div class="card-body"><h3>Rajasthan</h3><p class="card-meta"><i class="fa-solid fa-calendar-days"></i>7–8 Days &nbsp;|&nbsp;<i class="fa-solid fa-sun"></i>Nov–Mar</p><a href="booking.html" class="btn-sm">Explore</a></div></div>
+    <div class="card dest-card" data-cat="nature" data-aos="fade-up" data-aos-delay="50"><div class="card-img"><img src="https://images.unsplash.com/photo-1602216056096-3b40cc0c9944?w=600&q=80" alt="Kerala" loading="lazy"></div><div class="card-body"><h3>Kerala</h3><p class="card-meta"><i class="fa-solid fa-calendar-days"></i>5–7 Days &nbsp;|&nbsp;<i class="fa-solid fa-sun"></i>Oct–Feb</p><a href="booking.html" class="btn-sm">Explore</a></div></div>
+    <div class="card dest-card" data-cat="mountains" data-aos="fade-up" data-aos-delay="100"><div class="card-img"><img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=600&q=80" alt="Kashmir" loading="lazy"></div><div class="card-body"><h3>Kashmir</h3><p class="card-meta"><i class="fa-solid fa-calendar-days"></i>5–7 Days &nbsp;|&nbsp;<i class="fa-solid fa-sun"></i>Apr–Oct</p><a href="booking.html" class="btn-sm">Explore</a></div></div>
+    <div class="card dest-card" data-cat="mountains" data-aos="fade-up" data-aos-delay="150"><div class="card-img"><img src="https://images.unsplash.com/photo-1544735716-392fe2489ffa?w=600&q=80" alt="Ladakh" loading="lazy"></div><div class="card-body"><h3>Ladakh</h3><p class="card-meta"><i class="fa-solid fa-calendar-days"></i>7–9 Days &nbsp;|&nbsp;<i class="fa-solid fa-sun"></i>Jun–Sep</p><a href="booking.html" class="btn-sm">Explore</a></div></div>
+    <div class="card dest-card" data-cat="heritage" data-aos="fade-up" data-aos-delay="200"><div class="card-img"><img src="https://images.unsplash.com/photo-1564507592333-c60657eea523?w=600&q=80" alt="Agra" loading="lazy"></div><div class="card-body"><h3>Agra</h3><p class="card-meta"><i class="fa-solid fa-calendar-days"></i>2–3 Days &nbsp;|&nbsp;<i class="fa-solid fa-sun"></i>Oct–Mar</p><a href="booking.html" class="btn-sm">Explore</a></div></div>
+    <div class="card dest-card" data-cat="beach" data-aos="fade-up" data-aos-delay="250"><div class="card-img"><img src="https://s7ap1.scene7.com/is/image/incredibleindia/1-palolem-beach-goa-goa-city-hero?qlt=82&ts=1742182084999" alt="Goa" loading="lazy"></div><div class="card-body"><h3>Goa</h3><p class="card-meta"><i class="fa-solid fa-calendar-days"></i>4–5 Days &nbsp;|&nbsp;<i class="fa-solid fa-sun"></i>Nov–Feb</p><a href="booking.html" class="btn-sm">Explore</a></div></div>
+    <div class="card dest-card" data-cat="nature" data-aos="fade-up" data-aos-delay="300"><div class="card-img"><img src="https://images.unsplash.com/photo-1587474260584-136574528ed5?w=600&q=80" alt="Coorg" loading="lazy"></div><div class="card-body"><h3>Coorg, Karnataka</h3><p class="card-meta"><i class="fa-solid fa-calendar-days"></i>3–4 Days &nbsp;|&nbsp;<i class="fa-solid fa-sun"></i>Oct–Mar</p><a href="booking.html" class="btn-sm">Explore</a></div></div>
+    <div class="card dest-card" data-cat="spiritual" data-aos="fade-up" data-aos-delay="350"><div class="card-img"><img src="https://static2.tripoto.com/media/filter/tst/img/335641/Image/1753706950_image_ghat.jpg.webp" alt="Varanasi" loading="lazy"></div><div class="card-body"><h3>Varanasi</h3><p class="card-meta"><i class="fa-solid fa-calendar-days"></i>2–3 Days &nbsp;|&nbsp;<i class="fa-solid fa-sun"></i>Oct–Mar</p><a href="booking.html" class="btn-sm">Explore</a></div></div>
+    <div class="card dest-card" data-cat="beach" data-aos="fade-up" data-aos-delay="400"><div class="card-img"><img src="https://good-nature-blog-uploads.s3.amazonaws.com/uploads/2019/02/800px-Andaman_Islands_india.jpg" alt="Andaman" loading="lazy"></div><div class="card-body"><h3>Andaman Islands</h3><p class="card-meta"><i class="fa-solid fa-calendar-days"></i>5–7 Days &nbsp;|&nbsp;<i class="fa-solid fa-sun"></i>Nov–Apr</p><a href="booking.html" class="btn-sm">Explore</a></div></div>
+  </div>
+</section>
+
+<!-- ══ HOTELS ══ -->
+<section id="hotels" class="section-wrap">
+  <div class="section-header" data-aos="fade-up">
+    <span class="section-tag">Stay In Style</span>
+    <h2>Featured Hotels</h2>
+    <p>Luxury and comfort at India's finest properties</p>
+  </div>
+  <div class="cards-grid">
+    <div class="card hotel-card" data-aos="fade-up">
+      <div class="card-img"><img src="https://images.unsplash.com/photo-1566073771259-6a8506099945?w=600&q=80" alt="Trident Udaipur" loading="lazy"><span class="hotel-stars">★★★★★</span></div>
+      <div class="card-body"><h3>Trident, Udaipur</h3><p class="card-meta"><i class="fa-solid fa-location-dot"></i>Udaipur, Rajasthan</p><p>Serene lakeside luxury with panoramic views of Lake Pichola and the Aravalli hills.</p><a href="booking.html" class="btn-sm">Book Stay</a></div>
+    </div>
+    <div class="card hotel-card" data-aos="fade-up" data-aos-delay="100">
+      <div class="card-img"><img src="https://images.unsplash.com/photo-1582719508461-905c673771fd?w=600&q=80" alt="Taj Kovalam" loading="lazy"><span class="hotel-stars">★★★★★</span></div>
+      <div class="card-body"><h3>Taj Green Cove, Kovalam</h3><p class="card-meta"><i class="fa-solid fa-location-dot"></i>Kovalam, Kerala</p><p>Clifftop resort with infinity pool overlooking the Arabian Sea — pure paradise.</p><a href="booking.html" class="btn-sm">Book Stay</a></div>
+    </div>
+    <div class="card hotel-card" data-aos="fade-up" data-aos-delay="200">
+      <div class="card-img"><img src="https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?w=600&q=80" alt="Radisson Dharamshala" loading="lazy"><span class="hotel-stars">★★★★★</span></div>
+      <div class="card-body"><h3>Radisson Blu, Dharamshala</h3><p class="card-meta"><i class="fa-solid fa-location-dot"></i>Dharamshala, H.P.</p><p>Mountain luxury with breathtaking Dhauladhar views and world-class amenities.</p><a href="booking.html" class="btn-sm">Book Stay</a></div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ ACTIVITIES ══ -->
+<section id="activity" class="section-wrap section-alt">
+  <div class="section-header" data-aos="fade-up">
+    <span class="section-tag">Adventure Awaits</span>
+    <h2>Top Activities</h2>
+    <p>Thrilling experiences crafted for the bold traveller</p>
+  </div>
+  <div class="activities-showcase">
+    <div class="activity-big" data-aos="fade-right">
+      <img src="https://images.unsplash.com/photo-1530870110042-98b2cb110834?w=800&q=80" alt="River Rafting" loading="lazy">
+      <div class="activity-big-content">
+        <span class="act-tag">🌊 Water</span>
+        <h3>White River Rafting</h3>
+        <p>Rishikesh, Uttarakhand</p>
+        <a href="Activity.html" class="btn-primary">Book Activity</a>
+      </div>
+    </div>
+    <div class="activity-smalls">
+      <div class="activity-sm" data-aos="fade-left"><img src="https://images.unsplash.com/photo-1551632811-561732d1e306?w=500&q=80" alt="Trekking" loading="lazy"><div class="activity-sm-content"><span class="act-tag">🏔 Trek</span><h4>Himalayan Trekking</h4><p>Manali–Leh</p><a href="Activity.html" class="btn-sm-white">Book</a></div></div>
+      <div class="activity-sm" data-aos="fade-left" data-aos-delay="100"><img src="https://images.unsplash.com/photo-1469474968028-56623f02e42e?w=500&q=80" alt="Hot Air Balloon" loading="lazy"><div class="activity-sm-content"><span class="act-tag">🎈 Sky</span><h4>Hot Air Balloon</h4><p>Jaisalmer, Rajasthan</p><a href="Activity.html" class="btn-sm-white">Book</a></div></div>
+      <div class="activity-sm" data-aos="fade-left" data-aos-delay="200"><img src="https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=500&q=80" alt="Scuba Diving" loading="lazy"><div class="activity-sm-content"><span class="act-tag">🤿 Dive</span><h4>Scuba Diving</h4><p>Andaman Islands</p><a href="Activity.html" class="btn-sm-white">Book</a></div></div>
+      <div class="activity-sm" data-aos="fade-left" data-aos-delay="300"><img src="https://images.unsplash.com/photo-1551632436-cbf8dd35adfa?w=500&q=80" alt="Paragliding" loading="lazy"><div class="activity-sm-content"><span class="act-tag">🪂 Sky</span><h4>Paragliding</h4><p>Bir Billing, H.P.</p><a href="Activity.html" class="btn-sm-white">Book</a></div></div>
+    </div>
+  </div>
+  <div style="text-align:center;margin-top:48px" data-aos="fade-up">
+    <a href="Activity.html" class="btn-primary"><i class="fa-solid fa-bolt"></i> View All Activities</a>
+  </div>
+</section>
+
+<!-- ══ GUIDE ══ -->
+<section id="guide" class="section-wrap">
+  <div class="section-header" data-aos="fade-up">
+    <span class="section-tag">Expert Guides</span>
+    <h2>Travel Guides</h2>
+    <p>Curated itineraries crafted by local experts</p>
+  </div>
+  <div class="cards-grid">
+    <div class="card guide-card" data-aos="fade-up"><div class="card-img"><img src="https://images.unsplash.com/photo-1561361058-c24cecae35ca?w=600&q=80" alt="Ayodhya" loading="lazy"><span class="guide-tag">2 Days</span></div><div class="card-body"><h3>Ayodhya</h3><p>Ram Janmabhoomi, Hanuman Garhi and the sacred Saryu ghats — a complete spiritual circuit.</p><a href="booking.html" class="btn-sm">Plan Trip</a></div></div>
+    <div class="card guide-card" data-aos="fade-up" data-aos-delay="100"><div class="card-img"><img src="https://images.unsplash.com/photo-1587474260584-136574528ed5?w=600&q=80" alt="Delhi" loading="lazy"><span class="guide-tag">3 Days</span></div><div class="card-body"><h3>Delhi Heritage Trail</h3><p>Red Fort, Qutub Minar, Humayun's Tomb — a 3-day dive into 1000 years of Indian history.</p><a href="booking.html" class="btn-sm">Plan Trip</a></div></div>
+    <div class="card guide-card" data-aos="fade-up" data-aos-delay="200"><div class="card-img"><img src="https://images.unsplash.com/photo-1524230572899-a752b3835840?w=600&q=80" alt="Coorg" loading="lazy"><span class="guide-tag">2 Days</span></div><div class="card-body"><h3>Coorg Coffee Trail</h3><p>Karnataka's misty hill station — coffee estates, Abbey Falls and Dubare Elephant Camp.</p><a href="booking.html" class="btn-sm">Plan Trip</a></div></div>
+  </div>
+</section>
+
+<!-- ══ WHY US ══ -->
+<section class="why-section" data-aos="fade-up">
+  <div class="why-inner">
+    <div class="why-text">
+      <span class="section-tag">Why Choose Us</span>
+      <h2>Travel Smart<br>with <em>Tripzo</em></h2>
+      <p>We handle every detail so you can focus on what matters — the experience.</p>
+      <a href="booking.html" class="btn-primary" style="margin-top:24px;display:inline-flex">Start Planning</a>
+    </div>
+    <div class="why-grid">
+      <div class="why-card"><div class="why-icon"><i class="fa-solid fa-shield-halved"></i></div><h4>100% Secure Booking</h4><p>End-to-end encrypted payments. Your data stays private.</p></div>
+      <div class="why-card"><div class="why-icon"><i class="fa-solid fa-headset"></i></div><h4>24/7 Support</h4><p>Our travel experts are available round the clock.</p></div>
+      <div class="why-card"><div class="why-icon"><i class="fa-solid fa-tags"></i></div><h4>Best Price Guarantee</h4><p>Find a lower price? We'll match it — no questions asked.</p></div>
+      <div class="why-card"><div class="why-icon"><i class="fa-solid fa-map-location-dot"></i></div><h4>All 28 States Covered</h4><p>From Lakshadweep to Ladakh — every corner of India.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ TESTIMONIALS ══ -->
+<section class="section-wrap section-alt testi-section">
+  <div class="section-header" data-aos="fade-up">
+    <span class="section-tag">Traveller Stories</span>
+    <h2>What Our Guests Say</h2>
+  </div>
+  <div class="testi-grid">
+    <div class="testi-card" data-aos="fade-up"><div class="testi-stars">★★★★★</div><p>"Tripzo made our Rajasthan trip absolutely seamless. Every detail was perfectly arranged — from heritage hotels to camel safari!"</p><div class="testi-author"><div class="testi-avatar">PR</div><div><strong>Priya Rajan</strong><span>Chennai, Tamil Nadu</span></div></div></div>
+    <div class="testi-card" data-aos="fade-up" data-aos-delay="100"><div class="testi-stars">★★★★★</div><p>"The Ladakh package was worth every penny. The guides were knowledgeable and the itinerary was perfectly paced. Will book again!"</p><div class="testi-author"><div class="testi-avatar">AK</div><div><strong>Arjun Khanna</strong><span>Delhi, NCT</span></div></div></div>
+    <div class="testi-card" data-aos="fade-up" data-aos-delay="200"><div class="testi-stars">★★★★★</div><p>"Kerala backwaters houseboat stay was magical. Tripzo's booking was so smooth — got confirmation within minutes!"</p><div class="testi-author"><div class="testi-avatar">SM</div><div><strong>Sneha Mehta</strong><span>Mumbai, Maharashtra</span></div></div></div>
+  </div>
+</section>
+
+<!-- ══ NEWSLETTER ══ -->
+<section class="newsletter-section" data-aos="fade-up">
+  <h2>Stay Inspired ✈</h2>
+  <p>Get the best travel deals, destination guides and seasonal offers — delivered to your inbox.</p>
+  <form class="newsletter-form" id="nlForm" novalidate>
+    <input type="email" id="nl-email" placeholder="Enter your email address" required>
+    <button type="submit"><i class="fa-solid fa-paper-plane"></i> Subscribe</button>
+  </form>
+  <div class="nl-success" id="nl-success"><i class="fa-solid fa-circle-check"></i> You're subscribed! Watch your inbox for amazing deals.</div>
+</section>
+
+<!-- ══ CONTACT ══ -->
+<section id="contact" class="contact-section">
+  <div class="contact-wrap">
+    <div class="contact-info" data-aos="fade-right">
+      <span class="section-tag">Get In Touch</span>
+      <h2>Contact Us</h2>
+      <p>Have questions? We'd love to hear from you. Reach us through the form or directly.</p>
+      <ul class="contact-list">
+        <li><div class="c-icon"><i class="fas fa-map-marker-alt"></i></div><span>12 Travel Street, Connaught Place, New Delhi – 110001</span></li>
+        <li><div class="c-icon"><i class="fas fa-envelope"></i></div><a href="mailto:hello@tripzo.in">hello@tripzo.in</a></li>
+        <li><div class="c-icon"><i class="fas fa-phone"></i></div><a href="tel:+911800123456">+91 1800-123-456 (Toll Free)</a></li>
+        <li><div class="c-icon"><i class="fas fa-clock"></i></div><span>Mon–Sat: 9 AM – 8 PM IST</span></li>
+      </ul>
+      <div class="c-socials">
+        <a href="https://facebook.com" target="_blank" rel="noopener"><i class="fab fa-facebook"></i></a>
+        <a href="https://twitter.com" target="_blank" rel="noopener"><i class="fab fa-twitter"></i></a>
+        <a href="https://instagram.com" target="_blank" rel="noopener"><i class="fab fa-instagram"></i></a>
+        <a href="https://youtube.com" target="_blank" rel="noopener"><i class="fab fa-youtube"></i></a>
+      </div>
+    </div>
+    <form class="contact-form" id="contactForm" novalidate data-aos="fade-left">
+      <div class="cf-row">
+        <div class="cf-group"><label>Full Name</label><input type="text" id="cf-name" placeholder="Your name" required><span class="cf-err" id="err-cf-name">Please enter your name</span></div>
+        <div class="cf-group"><label>Email Address</label><input type="email" id="cf-email" placeholder="your@email.com" required><span class="cf-err" id="err-cf-email">Please enter a valid email</span></div>
+      </div>
+      <div class="cf-group"><label>Subject</label><input type="text" id="cf-subject" placeholder="How can we help?"></div>
+      <div class="cf-group"><label>Message</label><textarea id="cf-message" rows="5" placeholder="Tell us about your travel plans…" required></textarea><span class="cf-err" id="err-cf-message">Please write a message</span></div>
+      <button type="submit" class="btn-primary cf-submit"><i class="fa-solid fa-paper-plane"></i> Send Message</button>
+      <div class="cf-success" id="cf-success"><i class="fa-solid fa-circle-check"></i> Message sent! We'll respond within 24 hours.</div>
+    </form>
+  </div>
+</section>
+
+<!-- ══ FOOTER ══ -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <div class="footer-logo"><i class="fa-solid fa-plane-departure"></i></div>
+      <h3>Tripzo</h3>
+      <p>India's trusted travel partner since 2020. Covering all 28 states and 8 Union Territories.</p>
+      <div class="footer-socials">
+        <a href="https://facebook.com" target="_blank" rel="noopener"><i class="fab fa-facebook"></i></a>
+        <a href="https://twitter.com" target="_blank" rel="noopener"><i class="fab fa-twitter"></i></a>
+        <a href="https://instagram.com" target="_blank" rel="noopener"><i class="fab fa-instagram"></i></a>
+        <a href="https://youtube.com" target="_blank" rel="noopener"><i class="fab fa-youtube"></i></a>
+      </div>
+    </div>
+    <div class="footer-col">
+      <h4>Company</h4>
+      <a href="#">About Us</a><a href="#">Our Team</a><a href="#">Careers</a><a href="#">Press</a><a href="#">Blog</a>
+    </div>
+    <div class="footer-col">
+      <h4>Travel</h4>
+      <a href="#destinations">Destinations</a><a href="booking.html">Book a Trip</a><a href="Activity.html">Activities</a><a href="#hotels">Hotels</a><a href="#guide">Travel Guides</a>
+    </div>
+    <div class="footer-col">
+      <h4>Support</h4>
+      <a href="#contact">Contact Us</a><a href="#">Help Centre</a><a href="#">Payment Security</a><a href="#">Cancellation Policy</a><a href="#">Privacy Policy</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>&copy; 2025 Tripzo. All Rights Reserved. Made with ❤ in India.</p>
+    <p>Built with HTML, CSS &amp; JavaScript</p>
+  </div>
+</footer>
+
+<!-- Back to top -->
+<button class="back-top" id="backTop" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="Back to top">
+  <i class="fa-solid fa-chevron-up"></i>
+</button>
+
+<!-- Auth Modal -->
+<div id="auth-modal" class="modal-overlay">
+  <div class="modal-box">
+    <button class="modal-close" onclick="closeModal()"><i class="fa-solid fa-xmark"></i></button>
+    <div class="modal-tabs">
+      <button class="m-tab active" onclick="switchModalTab('login')">Login</button>
+      <button class="m-tab" onclick="switchModalTab('signup')">Sign Up</button>
+    </div>
+    <div id="login-container">
+      <div class="m-alert m-error" id="login-error" style="display:none"><i class="fa-solid fa-circle-exclamation"></i><span id="login-err-msg">Invalid email or password.</span></div>
+      <form onsubmit="handleLogin(event)" novalidate>
+        <div class="m-input"><i class="fa-solid fa-envelope"></i><input type="email" id="login-email" placeholder="Email address" required></div>
+        <div class="m-input"><i class="fa-solid fa-lock"></i><input type="password" id="login-password" placeholder="Password" required></div>
+        <button type="submit" class="btn-primary" style="width:100%;margin-top:8px;justify-content:center">Login</button>
+      </form>
+      <p class="m-switch">No account? <a href="#" onclick="switchModalTab('signup')">Sign Up</a> &nbsp;|&nbsp; <a href="loginpg.html">Full page →</a></p>
+    </div>
+    <div id="signup-container" style="display:none">
+      <div class="m-alert m-error" id="signup-error" style="display:none"><i class="fa-solid fa-circle-exclamation"></i><span id="signup-err-msg">Something went wrong.</span></div>
+      <form onsubmit="handleSignup(event)" novalidate>
+        <div class="m-input"><i class="fa-solid fa-user"></i><input type="text" id="signup-name" placeholder="Full name" required></div>
+        <div class="m-input"><i class="fa-solid fa-envelope"></i><input type="email" id="signup-email" placeholder="Email address" required></div>
+        <div class="m-input"><i class="fa-solid fa-lock"></i><input type="password" id="signup-password" placeholder="Password (min 6)" required></div>
+        <div class="m-input"><i class="fa-solid fa-lock"></i><input type="password" id="signup-confirm-password" placeholder="Confirm password" required></div>
+        <button type="submit" class="btn-primary" style="width:100%;margin-top:8px;justify-content:center">Create Account</button>
+      </form>
+      <p class="m-switch">Have an account? <a href="#" onclick="switchModalTab('login')">Login</a></p>
+    </div>
+  </div>
+</div>
+
+<script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+<script src="data.js"></script>
+<script src="travel.js"></script>
+<script>
+  AOS.init({duration:700,once:true,offset:60});
+  function filterDest(cat,e){
+    document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));
+    if(e&&e.target) e.target.classList.add('active');
+    document.querySelectorAll('.dest-card').forEach(card=>{
+      card.classList.toggle('hidden',cat!=='all'&&card.dataset.cat!==cat);
+    });
+  }
+</script>
+</body>
+</html>

@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login – Tripzo</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>✈</text></svg>">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" crossorigin="anonymous">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    *,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+    :root{
+      --coral:#ff7f50;--coral-dark:#e8673a;
+      --dark:#1a1a2e;--dark-2:#16213e;
+      --muted:#a0a0b0;--white:#fff;
+      --ibg:rgba(255,255,255,.07);--iborder:rgba(255,255,255,.15);
+      --error:#ff6b6b;--success:#51cf66;
+    }
+    html{scroll-behavior:smooth;}
+    body{font-family:'DM Sans',sans-serif;min-height:100vh;background:var(--dark);display:flex;overflow-x:hidden;}
+
+    /* LEFT */
+    .left{width:45%;position:relative;overflow:hidden;display:flex;flex-direction:column;justify-content:flex-end;padding:50px;flex-shrink:0;}
+    .left::before{content:'';position:absolute;inset:0;background:url('https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=900&q=80') center/cover no-repeat;z-index:0;}
+    .left::after{content:'';position:absolute;inset:0;background:linear-gradient(160deg,rgba(26,26,46,.3)0%,rgba(255,127,80,.2)50%,rgba(26,26,46,.92)100%);z-index:1;}
+    .brand-left{position:absolute;top:40px;left:50px;z-index:2;display:flex;align-items:center;gap:10px;text-decoration:none;}
+    .b-icon{width:44px;height:44px;border-radius:12px;background:var(--coral);display:flex;align-items:center;justify-content:center;font-size:1.2rem;color:#fff;box-shadow:0 4px 16px rgba(255,127,80,.5);}
+    .b-name{font-family:'Playfair Display',serif;font-size:1.5rem;color:#fff;font-weight:700;letter-spacing:.5px;}
+    .left-content{position:relative;z-index:2;}
+    .tagline{font-family:'Playfair Display',serif;font-size:clamp(1.8rem,3vw,2.8rem);font-weight:700;color:#fff;line-height:1.15;margin-bottom:14px;}
+    .tagline em{color:var(--coral);font-style:italic;}
+    .sub{font-size:.93rem;color:rgba(255,255,255,.72);font-weight:300;margin-bottom:28px;max-width:300px;line-height:1.6;}
+    .chips{display:flex;gap:10px;flex-wrap:wrap;}
+    .chip{background:rgba(255,255,255,.12);backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,.2);color:#fff;padding:6px 14px;border-radius:50px;font-size:.78rem;font-weight:500;}
+
+    /* RIGHT */
+    .right{flex:1;background:var(--dark-2);display:flex;align-items:center;justify-content:center;padding:60px 70px;position:relative;overflow:hidden;min-height:100vh;}
+    .right::before{content:'';position:absolute;width:400px;height:400px;border-radius:50%;background:radial-gradient(circle,rgba(255,127,80,.09)0%,transparent 70%);top:-120px;right:-120px;pointer-events:none;}
+    .right::after{content:'';position:absolute;width:300px;height:300px;border-radius:50%;background:radial-gradient(circle,rgba(255,127,80,.06)0%,transparent 70%);bottom:-80px;left:-80px;pointer-events:none;}
+
+    .back-link{position:absolute;top:28px;right:36px;display:flex;align-items:center;gap:8px;color:var(--muted);text-decoration:none;font-size:.84rem;font-weight:500;transition:color .3s;z-index:2;}
+    .back-link:hover{color:var(--coral);}
+
+    .mob-brand{display:none;align-items:center;gap:10px;text-decoration:none;margin-bottom:32px;}
+    .mob-brand .b-icon{width:38px;height:38px;border-radius:10px;font-size:1rem;}
+    .mob-brand span{font-family:'Playfair Display',serif;font-size:1.4rem;color:#fff;font-weight:700;}
+
+    .auth-box{width:100%;max-width:420px;position:relative;z-index:1;}
+
+    /* TABS */
+    .tabs{display:flex;background:rgba(255,255,255,.05);border-radius:12px;padding:4px;margin-bottom:32px;gap:4px;}
+    .tab-btn{flex:1;padding:12px;border:none;background:transparent;color:var(--muted);font-family:'DM Sans',sans-serif;font-size:.9rem;font-weight:600;border-radius:10px;cursor:pointer;transition:all .3s;}
+    .tab-btn.active{background:var(--coral);color:#fff;box-shadow:0 4px 18px rgba(255,127,80,.4);}
+
+    /* PANELS */
+    .panel{display:none;animation:fadeUp .35s ease both;}
+    .panel.active{display:block;}
+    @keyframes fadeUp{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
+
+    .f-heading{font-family:'Playfair Display',serif;font-size:1.85rem;color:#fff;margin-bottom:4px;}
+    .f-sub{font-size:.85rem;color:var(--muted);margin-bottom:26px;}
+
+    /* ALERTS */
+    .alert{padding:11px 15px;border-radius:9px;font-size:.84rem;margin-bottom:16px;display:none;align-items:center;gap:9px;}
+    .alert.error{background:rgba(255,107,107,.12);border:1px solid rgba(255,107,107,.3);color:var(--error);}
+    .alert.success{background:rgba(81,207,102,.12);border:1px solid rgba(81,207,102,.3);color:var(--success);}
+    .alert.show{display:flex;}
+
+    /* INPUTS */
+    .ig{position:relative;margin-bottom:16px;}
+    .ig i.iico{position:absolute;left:15px;top:50%;transform:translateY(-50%);color:var(--muted);font-size:.83rem;pointer-events:none;transition:color .3s;}
+    .ig:focus-within i.iico{color:var(--coral);}
+    .ig input{width:100%;padding:13px 44px;background:var(--ibg);border:1.5px solid var(--iborder);border-radius:10px;color:#fff;font-family:'DM Sans',sans-serif;font-size:.9rem;outline:none;transition:all .3s;}
+    .ig input::placeholder{color:var(--muted);}
+    .ig input:focus{border-color:var(--coral);background:rgba(255,127,80,.07);box-shadow:0 0 0 3px rgba(255,127,80,.15);}
+    .tog-pass{position:absolute;right:13px;top:50%;transform:translateY(-50%);background:none;border:none;color:var(--muted);cursor:pointer;font-size:.86rem;padding:4px;transition:color .3s;}
+    .tog-pass:hover{color:var(--coral);}
+
+    /* EXTRAS */
+    .extras{display:flex;justify-content:space-between;align-items:center;margin-bottom:22px;flex-wrap:wrap;gap:8px;}
+    .rem{display:flex;align-items:center;gap:8px;cursor:pointer;font-size:.82rem;color:var(--muted);}
+    .rem input{width:15px;height:15px;accent-color:var(--coral);cursor:pointer;}
+    .forgot{font-size:.82rem;color:var(--coral);text-decoration:none;font-weight:500;transition:opacity .2s;}
+    .forgot:hover{opacity:.75;text-decoration:underline;}
+
+    /* STRENGTH */
+    .str-bar{display:flex;gap:4px;margin-top:6px;margin-bottom:4px;}
+    .str-bar span{flex:1;height:3px;border-radius:3px;background:var(--iborder);transition:background .3s;}
+    .str-bar.weak span:nth-child(1){background:var(--error);}
+    .str-bar.fair span:nth-child(-n+2){background:#ffd43b;}
+    .str-bar.good span:nth-child(-n+3){background:#74c0fc;}
+    .str-bar.strong span{background:var(--success);}
+    .str-lbl{font-size:.72rem;font-weight:600;margin-bottom:10px;}
+    .str-lbl.weak{color:var(--error);}.str-lbl.fair{color:#ffd43b;}.str-lbl.good{color:#74c0fc;}.str-lbl.strong{color:var(--success);}
+
+    /* SUBMIT */
+    .sub-btn{width:100%;padding:14px;background:linear-gradient(135deg,var(--coral),var(--coral-dark));color:#fff;border:none;border-radius:11px;font-family:'DM Sans',sans-serif;font-size:.96rem;font-weight:700;letter-spacing:.7px;text-transform:uppercase;cursor:pointer;transition:all .3s;box-shadow:0 4px 22px rgba(255,127,80,.38);margin-top:4px;}
+    .sub-btn:hover{transform:translateY(-2px);box-shadow:0 8px 30px rgba(255,127,80,.55);}
+    .sub-btn:active{transform:translateY(0);}
+
+    /* DIVIDER */
+    .div{display:flex;align-items:center;gap:12px;margin:22px 0;color:var(--muted);font-size:.76rem;}
+    .div::before,.div::after{content:'';flex:1;height:1px;background:var(--iborder);}
+
+    /* SOCIAL */
+    .soc-btns{display:flex;gap:12px;}
+    .soc-btn{flex:1;padding:11px;background:var(--ibg);border:1.5px solid var(--iborder);border-radius:10px;color:rgba(255,255,255,.85);font-family:'DM Sans',sans-serif;font-size:.82rem;font-weight:500;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;transition:all .3s;}
+    .soc-btn:hover{background:rgba(255,255,255,.1);border-color:rgba(255,255,255,.3);transform:translateY(-1px);}
+
+    /* TERMS */
+    .terms{font-size:.76rem;color:var(--muted);margin-top:14px;text-align:center;line-height:1.6;}
+    .terms a{color:var(--coral);text-decoration:none;}
+    .terms a:hover{text-decoration:underline;}
+
+    /* RESPONSIVE */
+    @media(max-width:1024px){.left{width:38%;padding:40px 32px;}.right{padding:50px 48px;}.brand-left{left:32px;}}
+    @media(max-width:768px){
+      body{flex-direction:column;}
+      .left{display:none;}
+      .right{width:100%;min-height:100vh;padding:80px 28px 48px;align-items:flex-start;}
+      .back-link{top:20px;right:20px;}
+      .mob-brand{display:flex;}
+      .auth-box{max-width:100%;}
+      .f-heading{font-size:1.65rem;}
+    }
+    @media(max-width:480px){
+      .right{padding:70px 18px 40px;}
+      .tab-btn{font-size:.86rem;padding:10px 6px;}
+      .f-heading{font-size:1.4rem;}
+      .ig input{font-size:.86rem;}
+      .sub-btn{font-size:.9rem;padding:13px;}
+      .extras{flex-direction:column;align-items:flex-start;}
+      .soc-btns{flex-direction:column;}
+      .back-link .bl-txt{display:none;}
+    }
+    @media(max-width:360px){
+      .right{padding:65px 12px 30px;}
+      .f-heading{font-size:1.2rem;}
+    }
+  </style>
+</head>
+<body>
+
+<!-- LEFT -->
+<div class="left">
+  <a href="index.html" class="brand-left">
+    <div class="b-icon"><i class="fa-solid fa-plane-departure"></i></div>
+    <span class="b-name">Tripzo</span>
+  </a>
+  <div class="left-content">
+    <h2 class="tagline">Your next<br><em>adventure</em><br>awaits you.</h2>
+    <p class="sub">Join thousands of travellers exploring India's finest destinations with Tripzo.</p>
+    <div class="chips">
+      <span class="chip">🏔 Himachal</span>
+      <span class="chip">🌴 Kerala</span>
+      <span class="chip">🏜 Rajasthan</span>
+    </div>
+  </div>
+</div>
+
+<!-- RIGHT -->
+<div class="right">
+  <a href="index.html" class="back-link">
+    <i class="fa-solid fa-arrow-left"></i>
+    <span class="bl-txt">Back to Home</span>
+  </a>
+
+  <div class="auth-box">
+    <!-- Mobile brand -->
+    <a href="index.html" class="mob-brand">
+      <div class="b-icon"><i class="fa-solid fa-plane-departure"></i></div>
+      <span>Tripzo</span>
+    </a>
+
+    <!-- TABS -->
+    <div class="tabs">
+      <button class="tab-btn active" onclick="switchTab('login')">Login</button>
+      <button class="tab-btn" onclick="switchTab('signup')">Sign Up</button>
+    </div>
+
+    <!-- LOGIN -->
+    <div class="panel active" id="login-panel">
+      <h2 class="f-heading">Welcome back!</h2>
+      <p class="f-sub">Sign in to continue your journey</p>
+      <div class="alert error" id="lerr"><i class="fa-solid fa-circle-exclamation"></i><span id="lerr-msg">Invalid email or password.</span></div>
+      <div class="alert success" id="lsuc"><i class="fa-solid fa-circle-check"></i>Login successful! Redirecting…</div>
+      <form onsubmit="doLogin(event)" novalidate>
+        <div class="ig"><i class="fa-solid fa-envelope iico"></i><input type="email" id="l-email" placeholder="Email address" required autocomplete="email"></div>
+        <div class="ig"><i class="fa-solid fa-lock iico"></i><input type="password" id="l-pass" placeholder="Password" required autocomplete="current-password"><button type="button" class="tog-pass" onclick="togPass('l-pass',this)"><i class="fa-solid fa-eye"></i></button></div>
+        <div class="extras">
+          <label class="rem"><input type="checkbox" id="rem-me"> Remember me</label>
+          <a href="#" class="forgot">Forgot password?</a>
+        </div>
+        <button type="submit" class="sub-btn">Login</button>
+      </form>
+      <div class="div">or continue with</div>
+      <div class="soc-btns">
+        <button class="soc-btn" onclick="socialAlert()"><i class="fab fa-google" style="color:#ea4335"></i> Google</button>
+        <button class="soc-btn" onclick="socialAlert()"><i class="fab fa-facebook" style="color:#1877f2"></i> Facebook</button>
+      </div>
+    </div>
+
+    <!-- SIGNUP -->
+    <div class="panel" id="signup-panel">
+      <h2 class="f-heading">Create account</h2>
+      <p class="f-sub">Start your journey with Tripzo today</p>
+      <div class="alert error" id="serr"><i class="fa-solid fa-circle-exclamation"></i><span id="serr-msg">Something went wrong.</span></div>
+      <div class="alert success" id="ssuc"><i class="fa-solid fa-circle-check"></i>Account created! You can now log in.</div>
+      <form onsubmit="doSignup(event)" novalidate>
+        <div class="ig"><i class="fa-solid fa-user iico"></i><input type="text" id="s-name" placeholder="Full name" required autocomplete="name"></div>
+        <div class="ig"><i class="fa-solid fa-envelope iico"></i><input type="email" id="s-email" placeholder="Email address" required autocomplete="email"></div>
+        <div class="ig"><i class="fa-solid fa-lock iico"></i><input type="password" id="s-pass" placeholder="Password (min. 6 chars)" required autocomplete="new-password" oninput="checkStr(this.value)"><button type="button" class="tog-pass" onclick="togPass('s-pass',this)"><i class="fa-solid fa-eye"></i></button></div>
+        <div class="str-bar" id="str-bar"><span></span><span></span><span></span><span></span></div>
+        <div class="str-lbl" id="str-lbl"></div>
+        <div class="ig" style="margin-top:12px"><i class="fa-solid fa-lock iico"></i><input type="password" id="s-conf" placeholder="Confirm password" required autocomplete="new-password"><button type="button" class="tog-pass" onclick="togPass('s-conf',this)"><i class="fa-solid fa-eye"></i></button></div>
+        <button type="submit" class="sub-btn" style="margin-top:8px">Create Account</button>
+      </form>
+      <p class="terms">By signing up you agree to our <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a>.</p>
+    </div>
+  </div>
+</div>
+
+<script>
+  function switchTab(t){
+    document.querySelectorAll('.tab-btn').forEach((b,i)=>b.classList.toggle('active',(t==='login'&&i===0)||(t==='signup'&&i===1)));
+    document.getElementById('login-panel').classList.toggle('active',t==='login');
+    document.getElementById('signup-panel').classList.toggle('active',t==='signup');
+    hideAll();
+  }
+  function togPass(id,btn){
+    const el=document.getElementById(id);
+    const ic=btn.querySelector('i');
+    const sp=el.type==='password';
+    el.type=sp?'text':'password';
+    ic.classList.toggle('fa-eye',!sp);
+    ic.classList.toggle('fa-eye-slash',sp);
+  }
+  function checkStr(v){
+    const bar=document.getElementById('str-bar');
+    const lbl=document.getElementById('str-lbl');
+    let s=0;
+    if(v.length>=8)s++;if(/[A-Z]/.test(v))s++;if(/[0-9]/.test(v))s++;if(/[^A-Za-z0-9]/.test(v))s++;
+    bar.className='str-bar';lbl.className='str-lbl';
+    if(!v){lbl.textContent='';return;}
+    const lvs=['weak','fair','good','strong'],txs=['Weak','Fair','Good','Strong 💪'],lvl=s<=1?0:s===2?1:s===3?2:3;
+    bar.classList.add(lvs[lvl]);lbl.classList.add(lvs[lvl]);lbl.textContent=txs[lvl];
+  }
+  const show=id=>document.getElementById(id).classList.add('show');
+  const hide=id=>document.getElementById(id).classList.remove('show');
+  const hideAll=()=>['lerr','lsuc','serr','ssuc'].forEach(hide);
+  const getUsers=()=>JSON.parse(localStorage.getItem('tripzo_users')||'[]');
+  const saveUsers=a=>localStorage.setItem('tripzo_users',JSON.stringify(a));
+
+  function doLogin(e){
+    e.preventDefault();hideAll();
+    const email=document.getElementById('l-email').value.trim();
+    const pass=document.getElementById('l-pass').value;
+    const rem=document.getElementById('rem-me').checked;
+    if(!email||!pass){document.getElementById('lerr-msg').textContent='Please fill in all fields.';show('lerr');return;}
+    const user=getUsers().find(u=>u.email===email&&u.password===pass);
+    if(!user){document.getElementById('lerr-msg').textContent='Invalid email or password. Not registered? Sign up!';show('lerr');return;}
+    if(rem)localStorage.setItem('tripzo_logged_in',email);
+    else sessionStorage.setItem('tripzo_logged_in',email);
+    sessionStorage.setItem('tripzo_user_name',user.name);
+    show('lsuc');
+    setTimeout(()=>window.location.href='index.html',1500);
+  }
+  function doSignup(e){
+    e.preventDefault();hideAll();
+    const name=document.getElementById('s-name').value.trim();
+    const email=document.getElementById('s-email').value.trim();
+    const pass=document.getElementById('s-pass').value;
+    const conf=document.getElementById('s-conf').value;
+    const err=msg=>{document.getElementById('serr-msg').textContent=msg;show('serr');};
+    if(!name||!email||!pass||!conf){err('Please fill in all fields.');return;}
+    if(!/\S+@\S+\.\S+/.test(email)){err('Please enter a valid email address.');return;}
+    if(pass.length<6){err('Password must be at least 6 characters.');return;}
+    if(pass!==conf){err('Passwords do not match.');return;}
+    const users=getUsers();
+    if(users.find(u=>u.email===email)){err('This email is already registered.');return;}
+    users.push({name,email,password:pass});saveUsers(users);
+    show('ssuc');
+    document.getElementById('signup-panel').querySelector('form').reset();
+    document.getElementById('str-bar').className='str-bar';
+    document.getElementById('str-lbl').textContent='';
+    setTimeout(()=>switchTab('login'),1800);
+  }
+  function socialAlert(){alert('Social login coming soon! 🚀');}
+  window.addEventListener('DOMContentLoaded',()=>{
+    const saved=localStorage.getItem('tripzo_logged_in');
+    if(saved){document.getElementById('l-email').value=saved;document.getElementById('rem-me').checked=true;}
+  });
+</script>
+</body>
+</html>

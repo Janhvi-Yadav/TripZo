@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Book a Trip – Tripzo</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>✈</text></svg>">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" crossorigin="anonymous">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    /* ── PAGE SPECIFIC ── */
+    .page-hero{height:260px;position:relative;display:flex;align-items:center;justify-content:center;overflow:hidden;}
+    .page-hero::before{content:'';position:absolute;inset:0;background:url('https://images.unsplash.com/photo-1524492412937-b28074a5d7da?w=1400&q=80') center/cover;}
+    .page-hero::after{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(26,26,46,.82)0%,rgba(255,127,80,.25)100%);}
+    .page-hero-text{position:relative;z-index:1;text-align:center;color:#fff;}
+    .page-hero-text h1{font-family:'Playfair Display',serif;font-size:clamp(1.8rem,4vw,3rem);font-weight:700;margin-bottom:8px;}
+    .page-hero-text h1 em{color:var(--coral);font-style:italic;}
+    .page-hero-text p{font-size:.95rem;opacity:.8;}
+    .breadcrumb{padding:14px 80px;background:#fff;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:8px;font-size:.82rem;color:var(--text-muted);}
+    .breadcrumb a{color:var(--coral);font-weight:500;}
+    .breadcrumb i{font-size:.65rem;}
+    /* Layout */
+    .booking-layout{max-width:1200px;margin:40px auto;padding:0 24px;display:grid;grid-template-columns:1fr 360px;gap:30px;align-items:start;}
+    /* Steps */
+    .steps{display:flex;align-items:center;margin-bottom:28px;}
+    .step{display:flex;align-items:center;gap:10px;}
+    .step-num{width:32px;height:32px;border-radius:50%;background:var(--border);color:var(--text-muted);display:flex;align-items:center;justify-content:center;font-size:.82rem;font-weight:700;flex-shrink:0;transition:all .3s;}
+    .step.active .step-num{background:var(--coral);color:#fff;box-shadow:0 4px 14px rgba(255,127,80,.4);}
+    .step.done .step-num{background:#2e7d32;color:#fff;}
+    .step-label{font-size:.78rem;font-weight:600;color:var(--text-muted);}
+    .step.active .step-label{color:var(--coral);}
+    .step.done .step-label{color:#2e7d32;}
+    .step-line{flex:1;height:2px;background:var(--border);margin:0 8px;transition:background .3s;}
+    .step-line.done{background:#2e7d32;}
+    /* Form card */
+    .form-card{background:#fff;border-radius:20px;box-shadow:var(--shadow);overflow:hidden;}
+    .form-card-head{background:linear-gradient(135deg,var(--dark),var(--dark-2));padding:24px 32px;display:flex;align-items:center;gap:16px;}
+    .form-card-head .fch-icon{width:48px;height:48px;background:rgba(255,127,80,.15);border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:1.2rem;color:var(--coral);}
+    .form-card-head h2{font-family:'Playfair Display',serif;font-size:1.4rem;color:#fff;}
+    .form-card-head p{font-size:.82rem;color:rgba(255,255,255,.6);margin-top:2px;}
+    .form-body{padding:30px 32px;}
+    .form-row{display:grid;grid-template-columns:1fr 1fr;gap:18px;}
+    .fg{margin-bottom:20px;}
+    .fg label{display:flex;align-items:center;gap:6px;font-size:.76rem;font-weight:700;text-transform:uppercase;letter-spacing:.8px;color:var(--text);margin-bottom:7px;}
+    .fg label i{color:var(--coral);font-size:.7rem;}
+    .sel-wrap{position:relative;}
+    .sel-wrap::after{content:'\f107';font-family:'Font Awesome 6 Free';font-weight:900;position:absolute;right:14px;top:50%;transform:translateY(-50%);color:var(--text-muted);pointer-events:none;font-size:.8rem;}
+    .fg select,.fg input[type="number"],.fg input[type="date"]{width:100%;padding:12px 14px;border:2px solid var(--border);border-radius:10px;font-family:'DM Sans',sans-serif;font-size:.9rem;color:var(--text);background:#fafafa;outline:none;transition:all .3s;appearance:none;-webkit-appearance:none;}
+    .fg select:focus,.fg input:focus{border-color:var(--coral);background:#fff;box-shadow:0 0 0 4px rgba(255,127,80,.1);}
+    .fg select:disabled{opacity:.5;cursor:not-allowed;}
+    /* Sites */
+    .sites-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;padding:12px;background:#fafafa;border:2px solid var(--border);border-radius:10px;min-height:60px;}
+    .site-chip{display:flex;align-items:center;gap:8px;padding:8px 12px;border-radius:8px;border:1.5px solid var(--border);background:#fff;cursor:pointer;transition:all .2s;font-size:.82rem;color:var(--text);}
+    .site-chip input[type="checkbox"]{width:14px;height:14px;accent-color:var(--coral);cursor:pointer;flex-shrink:0;margin:0;padding:0;border:none;box-shadow:none;}
+    .site-chip:hover{border-color:var(--coral);background:var(--coral-light);}
+    .site-chip.checked{border-color:var(--coral);background:var(--coral-light);color:var(--coral-dark);font-weight:600;}
+    .sites-hint{grid-column:1/-1;text-align:center;color:var(--text-muted);font-size:.82rem;padding:10px;}
+    /* Field errors */
+    .ferr{font-size:.75rem;color:#e53935;margin-top:4px;display:none;align-items:center;gap:4px;}
+    .ferr.show{display:flex;}
+    /* Submit btn */
+    .form-submit{width:100%;padding:15px;background:linear-gradient(135deg,var(--coral),var(--coral-dark));color:#fff;border:none;border-radius:12px;font-family:'DM Sans',sans-serif;font-size:1rem;font-weight:700;letter-spacing:.5px;cursor:pointer;transition:all .3s;box-shadow:0 6px 22px rgba(255,127,80,.38);display:flex;align-items:center;justify-content:center;gap:10px;margin-top:8px;}
+    .form-submit:hover{transform:translateY(-2px);box-shadow:0 10px 30px rgba(255,127,80,.55);}
+    /* Summary */
+    .summary-card{background:#fff;border-radius:20px;box-shadow:var(--shadow);overflow:hidden;position:sticky;top:90px;}
+    .sum-head{background:linear-gradient(135deg,var(--coral),var(--coral-dark));padding:20px 24px;color:#fff;}
+    .sum-head h3{font-family:'Playfair Display',serif;font-size:1.15rem;margin-bottom:3px;}
+    .sum-head p{font-size:.78rem;opacity:.85;}
+    .sum-body{padding:22px;}
+    .sum-item{display:flex;justify-content:space-between;align-items:flex-start;padding:11px 0;border-bottom:1px solid var(--border);gap:10px;}
+    .sum-item:last-child{border-bottom:none;}
+    .sum-label{font-size:.74rem;text-transform:uppercase;letter-spacing:.8px;color:var(--text-muted);font-weight:700;display:flex;align-items:center;gap:5px;flex-shrink:0;}
+    .sum-label i{color:var(--coral);}
+    .sum-val{font-size:.88rem;font-weight:600;color:var(--text);text-align:right;max-width:58%;}
+    .sum-empty{text-align:center;padding:28px 16px;color:var(--text-muted);font-size:.88rem;}
+    .sum-empty i{font-size:2.2rem;color:var(--border);display:block;margin-bottom:10px;}
+    /* Confirm modal */
+    .bk-modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,.6);backdrop-filter:blur(4px);z-index:9999;align-items:center;justify-content:center;}
+    .bk-modal.open{display:flex;}
+    .bk-modal-box{background:#fff;border-radius:24px;padding:44px 38px;max-width:500px;width:92%;text-align:center;animation:popIn .4s cubic-bezier(.175,.885,.32,1.275);box-shadow:0 30px 80px rgba(0,0,0,.25);}
+    @keyframes popIn{from{opacity:0;transform:scale(.85)}to{opacity:1;transform:scale(1)}}
+    .bk-tick{width:76px;height:76px;background:linear-gradient(135deg,#51cf66,#2e7d32);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 22px;font-size:1.9rem;color:#fff;box-shadow:0 8px 24px rgba(81,207,102,.4);}
+    .bk-modal-box h2{font-family:'Playfair Display',serif;font-size:1.7rem;margin-bottom:8px;color:var(--dark);}
+    .bk-modal-box>p{color:var(--text-muted);font-size:.9rem;margin-bottom:22px;line-height:1.6;}
+    .bk-ref{background:var(--coral-light);border:1.5px dashed var(--coral);border-radius:10px;padding:12px 18px;margin-bottom:22px;font-size:.82rem;color:var(--coral-dark);font-weight:700;}
+    .bk-details{text-align:left;background:#f8f9fc;border-radius:12px;padding:14px 18px;margin-bottom:24px;}
+    .md-row{display:flex;justify-content:space-between;padding:6px 0;font-size:.85rem;border-bottom:1px solid var(--border);}
+    .md-row:last-child{border-bottom:none;}
+    .md-row span:first-child{color:var(--text-muted);font-weight:500;}
+    .md-row span:last-child{font-weight:600;color:var(--text);text-align:right;max-width:60%;}
+    .bk-btn{width:100%;padding:13px;border-radius:12px;border:none;font-family:'DM Sans',sans-serif;font-size:.92rem;font-weight:700;cursor:pointer;transition:all .3s;margin-bottom:10px;}
+    .bk-btn-primary{background:linear-gradient(135deg,var(--coral),var(--coral-dark));color:#fff;box-shadow:0 4px 16px rgba(255,127,80,.35);}
+    .bk-btn-primary:hover{transform:translateY(-1px);}
+    .bk-btn-secondary{background:transparent;color:var(--text-muted);border:2px solid var(--border);}
+    .bk-btn-secondary:hover{border-color:var(--coral);color:var(--coral);}
+    @media(max-width:900px){.booking-layout{grid-template-columns:1fr;}.summary-card{position:static;}.breadcrumb{padding:14px 20px;}.form-row{grid-template-columns:1fr;}.form-body{padding:22px 20px;}}
+    @media(max-width:600px){.sites-grid{grid-template-columns:1fr;}}
+  </style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<header id="navbar">
+  <a href="index.html" class="nav-brand">
+    <div class="nav-brand-icon"><i class="fa-solid fa-plane-departure"></i></div>
+    <span>Tripzo</span>
+  </a>
+  <nav><ul id="nav-list">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="index.html#destinations">Destinations</a></li>
+    <li><a href="index.html#hotels">Hotels</a></li>
+    <li><a href="Activity.html">Activities</a></li>
+    <li><a href="index.html#contact">Contact</a></li>
+    <li><a href="loginpg.html" class="nav-login-btn"><i class="fa-solid fa-user"></i> Login</a></li>
+  </ul></nav>
+  <button class="hamburger" id="hamburger" onclick="toggleNav()" aria-label="Toggle menu"><span></span><span></span><span></span></button>
+</header>
+
+<!-- PAGE HERO -->
+<div class="page-hero">
+  <div class="page-hero-text">
+    <h1>Book Your <em>Dream Trip</em></h1>
+    <p>Choose your destination, pick your spots, and let us handle the rest.</p>
+  </div>
+</div>
+
+<!-- BREADCRUMB -->
+<div class="breadcrumb">
+  <a href="index.html"><i class="fa-solid fa-house"></i> Home</a>
+  <i class="fa-solid fa-chevron-right"></i>
+  <span>Book a Trip</span>
+</div>
+
+<!-- MAIN -->
+<div class="booking-layout">
+  <!-- LEFT: FORM -->
+  <div>
+    <!-- Progress Steps -->
+    <div class="steps">
+      <div class="step active" id="step1"><div class="step-num">1</div><div class="step-label">Destination</div></div>
+      <div class="step-line" id="line1"></div>
+      <div class="step" id="step2"><div class="step-num">2</div><div class="step-label">Details</div></div>
+      <div class="step-line" id="line2"></div>
+      <div class="step" id="step3"><div class="step-num">3</div><div class="step-label">Confirm</div></div>
+    </div>
+
+    <div class="form-card">
+      <div class="form-card-head">
+        <div class="fch-icon"><i class="fa-solid fa-map-location-dot"></i></div>
+        <div><h2>Plan Your Journey</h2><p>Fill in the details below to book your perfect trip</p></div>
+      </div>
+      <div class="form-body">
+        <form id="bookingForm" novalidate>
+          <!-- State + City -->
+          <div class="form-row">
+            <div class="fg">
+              <label><i class="fa-solid fa-map"></i>State</label>
+              <div class="sel-wrap">
+                <select id="placeName" onchange="updateCities()"><option value="">Select State</option></select>
+              </div>
+              <div class="ferr" id="err-state"><i class="fa-solid fa-circle-exclamation"></i>Please select a state</div>
+            </div>
+            <div class="fg">
+              <label><i class="fa-solid fa-city"></i>City</label>
+              <div class="sel-wrap">
+                <select id="cityName" onchange="updateSites()" disabled><option value="">Select City</option></select>
+              </div>
+              <div class="ferr" id="err-city"><i class="fa-solid fa-circle-exclamation"></i>Please select a city</div>
+            </div>
+          </div>
+          <!-- Sites -->
+          <div class="fg">
+            <label><i class="fa-solid fa-landmark"></i>Tourist Attractions</label>
+            <div class="sites-grid" id="siteName">
+              <p class="sites-hint">Select a city to see attractions</p>
+            </div>
+            <div class="ferr" id="err-sites"><i class="fa-solid fa-circle-exclamation"></i>Select at least one attraction</div>
+          </div>
+          <!-- Members + Guide -->
+          <div class="form-row">
+            <div class="fg">
+              <label><i class="fa-solid fa-users"></i>Members</label>
+              <input type="number" id="members" placeholder="Number of travellers" min="1" max="50" oninput="updateSummary()">
+              <div class="ferr" id="err-members"><i class="fa-solid fa-circle-exclamation"></i>Enter 1–50 members</div>
+            </div>
+            <div class="fg">
+              <label><i class="fa-solid fa-language"></i>Guide / Advisor</label>
+              <div class="sel-wrap">
+                <select id="Guide" onchange="updateSummary()">
+                  <option value="">Optional – No guide</option>
+                  <option value="English / Hindi">English / Hindi</option>
+                  <option value="English / Bengali">English / Bengali</option>
+                  <option value="English / Tamil">English / Tamil</option>
+                  <option value="English / Telugu">English / Telugu</option>
+                  <option value="English / Kannada">English / Kannada</option>
+                  <option value="English / Marathi">English / Marathi</option>
+                  <option value="English / Gujarati">English / Gujarati</option>
+                  <option value="English / Punjabi">English / Punjabi</option>
+                </select>
+              </div>
+            </div>
+          </div>
+          <!-- Dates -->
+          <div class="form-row">
+            <div class="fg">
+              <label><i class="fa-solid fa-calendar-plus"></i>Journey Starts</label>
+              <input type="date" id="startDate">
+              <div class="ferr" id="err-start"><i class="fa-solid fa-circle-exclamation"></i>Please select a start date</div>
+            </div>
+            <div class="fg">
+              <label><i class="fa-solid fa-calendar-check"></i>Journey Ends</label>
+              <input type="date" id="endDate">
+              <div class="ferr" id="err-end"><i class="fa-solid fa-circle-exclamation"></i>End date must be after start</div>
+            </div>
+          </div>
+          <button type="button" id="submit" class="form-submit">
+            <i class="fa-solid fa-paper-plane"></i> Confirm Booking
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- RIGHT: SUMMARY -->
+  <div class="summary-card">
+    <div class="sum-head"><h3>Booking Summary</h3><p>Your trip details at a glance</p></div>
+    <div class="sum-body" id="summaryBody">
+      <div class="sum-empty"><i class="fa-solid fa-map-pin"></i>Start filling the form to see your trip summary here.</div>
+    </div>
+  </div>
+</div>
+
+<!-- CONFIRM MODAL -->
+<div class="bk-modal" id="confirmModal">
+  <div class="bk-modal-box">
+    <div class="bk-tick"><i class="fa-solid fa-check"></i></div>
+    <h2>Booking Confirmed!</h2>
+    <p>Your trip has been booked. Check your email for full itinerary details.</p>
+    <div class="bk-ref" id="bookingRef">Booking ID: #TRP-000000</div>
+    <div class="bk-details" id="modalDetails"></div>
+    <button class="bk-btn bk-btn-primary" onclick="window.location.href='index.html'"><i class="fa-solid fa-house"></i> Back to Home</button>
+    <button class="bk-btn bk-btn-secondary" onclick="closeConfirmModal()">Book Another Trip</button>
+  </div>
+</div>
+
+<button class="back-top" id="backTop" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="Back to top"><i class="fa-solid fa-chevron-up"></i></button>
+
+<script src="data.js"></script>
+<script src="travel.js"></script>
+<script>
+  /* Live summary wired to booking page */
+  window.updateSummary = function() {
+    const state  = (document.getElementById('placeName')||{}).value;
+    const city   = (document.getElementById('cityName')||{}).value;
+    const members= (document.getElementById('members')||{}).value;
+    const guide  = (document.getElementById('Guide')||{}).value;
+    const start  = (document.getElementById('startDate')||{}).value;
+    const end    = (document.getElementById('endDate')||{}).value;
+    const sites  = Array.from(document.querySelectorAll('#siteName input:checked')).map(c=>c.value);
+    const body   = document.getElementById('summaryBody');
+    if(!body) return;
+    if(!state){body.innerHTML='<div class="sum-empty"><i class="fa-solid fa-map-pin"></i>Start filling the form to see your trip summary here.</div>';return;}
+    const row=(ico,lbl,val)=>val?`<div class="sum-item"><div class="sum-label"><i class="fa-solid fa-${ico}"></i>${lbl}</div><div class="sum-val">${val}</div></div>`:'';
+    let html='';
+    html+=row('map','State',state);
+    html+=row('city','City',city);
+    if(sites.length) html+=row('landmark','Attractions',sites.join(', '));
+    html+=row('users','Members',members?`${members} traveller${members>1?'s':''}`: '');
+    html+=row('language','Guide',guide||'None');
+    if(start&&end){
+      const days=Math.ceil((new Date(end)-new Date(start))/86400000);
+      html+=row('calendar','Dates',`${fmtDate(start)} → ${fmtDate(end)}`);
+      if(days>0) html+=row('clock','Duration',`${days} day${days>1?'s':''}`);
+    } else if(start){
+      html+=row('calendar','Starts',fmtDate(start));
+    }
+    body.innerHTML=html||'<div class="sum-empty"><i class="fa-solid fa-map-pin"></i>Keep filling the form...</div>';
+  };
+
+  /* date constraints */
+  const today=new Date().toISOString().split('T')[0];
+  document.getElementById('startDate').min=today;
+  document.getElementById('endDate').min=today;
+  document.getElementById('startDate').addEventListener('change',function(){
+    document.getElementById('endDate').min=this.value;
+    window.updateSummary();
+  });
+  document.getElementById('endDate').addEventListener('change',window.updateSummary);
+</script>
+</body>
+</html>
