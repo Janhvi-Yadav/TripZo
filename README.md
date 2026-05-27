@@ -124,55 +124,6 @@ Each city includes: **Tourist Sites** (4–6) + **Activities** (4–6)
 
 ---
 
-## 🚀 Getting Started
-
-### Option 1 — Just open it
-```bash
-# Unzip / clone the repo, then:
-open index.html        # macOS
-start index.html       # Windows
-xdg-open index.html    # Linux
-```
-
-### Option 2 — VS Code Live Server (recommended for dev)
-1. Install the **Live Server** extension in VS Code
-2. Right-click `index.html` → **Open with Live Server**
-
----
-
-## 🌍 Deploy in 60 Seconds (Netlify)
-
-### Drag & Drop (no account needed for testing)
-1. Go to [app.netlify.com/drop](https://app.netlify.com/drop)
-2. Drag the `Tripzo` folder onto the page
-3. Done — you get a live URL instantly
-
-### Connect GitHub (auto-deploy on push)
-1. Push to GitHub (see below)
-2. Go to [netlify.com](https://netlify.com) → **Add new site** → **Import from Git**
-3. Select your repo → **Deploy**
-
-The included `netlify.toml` handles:
-- Custom 404 page routing
-- Security headers (X-Frame-Options, XSS protection)
-- Cache headers (1 week for CSS/JS, 1 hour for HTML)
-
----
-
-## 📤 Push to GitHub
-
-```bash
-cd Tripzo          # enter the project folder
-git init
-git add .
-git commit -m "feat: initial Tripzo travel website"
-git branch -M main
-git remote add origin https://github.com/YOUR_USERNAME/tripzo.git
-git push -u origin main
-```
-
----
-
 ## 📱 Responsive Breakpoints
 
 | Breakpoint | Changes |
@@ -209,8 +160,3 @@ Frontend internship project — demonstrates:
 - Scroll animations and micro-interactions
 - Deployment-ready configuration
 
----
-
-## 📄 License
-
-MIT — free to use, modify and deploy.
